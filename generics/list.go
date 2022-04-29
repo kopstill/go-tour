@@ -9,13 +9,16 @@ type List[T comparable] struct {
 	val  T
 }
 
+func (l List[T]) String() string {
+	return fmt.Sprintf("next:: %v | val:: %v", l.next, l.val)
+}
+
 // if nothing next, returns 'zero' value of T.
 func (l List[T]) get() T {
 	return l.val
 }
 
 func (l *List[T]) insert(newVal T) {
-	// 5 lines to do a deep copy... There is probably a better way !
 	copyList := new(List[T])
 	copyNext := l.next
 	copyVal := l.val
@@ -38,21 +41,31 @@ func (l *List[T]) remove() {
 
 func main() {
 	var myLinkedList = new(List[string])
-	// prints nothing
-	fmt.Print(myLinkedList.get())
-	myLinkedList.insert("hyerin\n")
-	// prints hyerin
-	fmt.Print(myLinkedList.get())
+	fmt.Println(myLinkedList)
+	fmt.Println(myLinkedList.get())
+	fmt.Println("-------")
+
+	myLinkedList.insert("hyerin")
+	fmt.Println(myLinkedList)
+	fmt.Println(myLinkedList.get())
+	fmt.Println("-------")
+
 	myLinkedList.remove()
-	// prints nothing
-	fmt.Print(myLinkedList.get())
-	myLinkedList.insert("hyerin\n")
-	// prints hyerin
-	fmt.Print(myLinkedList.get())
-	myLinkedList.insert("emile\n")
-	// prints emile
-	fmt.Print(myLinkedList.get())
+	fmt.Println(myLinkedList)
+	fmt.Println(myLinkedList.get())
+	fmt.Println("-------")
+
+	myLinkedList.insert("hyerin")
+	fmt.Println(myLinkedList)
+	fmt.Println(myLinkedList.get())
+	fmt.Println("-------")
+
+	myLinkedList.insert("emile")
+	fmt.Println(myLinkedList)
+	fmt.Println(myLinkedList.get())
+	fmt.Println("-------")
+
 	myLinkedList.remove()
-	// prints hyerin
-	fmt.Print(myLinkedList.get())
+	fmt.Println(myLinkedList)
+	fmt.Println(myLinkedList.get())
 }
