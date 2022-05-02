@@ -13,10 +13,11 @@ type SafeCounter struct {
 }
 
 // Inc increments the counter for the given key.
-func (c *SafeCounter) Inc(key string) {
+func (c *SafeCounter) Inc(key string, i int) {
 	c.mu.Lock()
 	// Lock so only one goroutine at a time can access the map c.v.
 	c.v[key]++
+	fmt.Println(i)
 	c.mu.Unlock()
 }
 
@@ -31,9 +32,11 @@ func (c *SafeCounter) Value(key string) int {
 func main() {
 	c := SafeCounter{v: make(map[string]int)}
 	for i := 0; i < 1000; i++ {
-		go c.Inc("somekey")
+		go c.Inc("somekey", i)
 	}
 
+	fmt.Println("---")
+
 	time.Sleep(time.Second)
-	fmt.Println(c.Value("somekey"))
+	fmt.Println("result:", c.Value("somekey"))
 }
